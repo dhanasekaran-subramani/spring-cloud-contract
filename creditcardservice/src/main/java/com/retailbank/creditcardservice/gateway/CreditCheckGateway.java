@@ -1,5 +1,6 @@
 package com.retailbank.creditcardservice.gateway;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -8,13 +9,16 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class CreditCheckGateway {
 
     private final RestTemplate restTemplate;
+    private final String creditcheckserviceBaseUrl;
 
-    public CreditCheckGateway(RestTemplate restTemplate) {
+    public CreditCheckGateway(RestTemplate restTemplate,
+                              @Value("${creditcheckservice.baseurl}") String creditcheckserviceBaseUrl) {
         this.restTemplate = restTemplate;
+        this.creditcheckserviceBaseUrl = creditcheckserviceBaseUrl;
     }
 
     public CreditCheckResponse.Score doCreditCheckForCitizen(int citizenNumber) {
-        final String uri = UriComponentsBuilder.fromHttpUrl("http://localhost:8080")
+        final String uri = UriComponentsBuilder.fromHttpUrl(creditcheckserviceBaseUrl)
                 .path("credit-scores")
                 .toUriString();
 

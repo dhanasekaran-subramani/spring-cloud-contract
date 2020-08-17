@@ -12,7 +12,7 @@ Contract.make {
         }
         """
         headers {
-            contentType applicationJson()
+            contentType 'application/json'
         }
     }
     response {
@@ -23,7 +23,7 @@ Contract.make {
         }
         """
         headers {
-            contentType applicationJson()
+            contentType 'application/json'
         }
     }
 }
